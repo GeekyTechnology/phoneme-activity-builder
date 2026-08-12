@@ -15,16 +15,6 @@ export default function About() {
         <h2>Student details</h2>
         <p><strong>Name:</strong> Zac Whyte</p>
         <p><strong>Student number:</strong> 22308075</p>
-
-        <h2>Video</h2>
-        <p className="small">
-          Add the 6-8 minute walkthrough video here. The video should show the student ID, face, voice,
-          website demo and GitHub repository.
-        </p>
-        <div className="info-box">
-          <strong>VIDEO PLACEHOLDER</strong>
-          <p className="small">Replace this box with the video link or embed before submission.</p>
-        </div>
       </div>
     </div>
   );
