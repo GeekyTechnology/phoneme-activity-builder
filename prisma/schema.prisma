@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Word {
+  id           Int        @id @default(autoincrement())
+  englishWord  String
+  phonemes     Json
+  hint         String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  activities   Activity[]
+  activityWords ActivityWord[]
+}
+
+model Activity {
+  id              Int      @id @default(autoincrement())
+  name            String
+  type            String
+  difficulty      String
+  showHints       Boolean  @default(true)
+  numberOfGuesses Int      @default(6)
+
+  // Used by Wordle
+  wordId          Int?
+  word            Word?    @relation(fields: [wordId], references: [id])
+
+  // Used by Word Search
+  activityWords   ActivityWord[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model ActivityWord {
+  activityId Int
+  wordId     Int
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  word     Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@id([activityId, wordId])
+}
